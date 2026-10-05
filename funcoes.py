@@ -28,12 +28,10 @@ def posiciona_frota(frota):
     tabuleiro = []
     for i in range(10):
         tabuleiro.append([0] * 10)
-
     for navios in frota.values():
         for navio in navios:
             for linha, coluna in navio:
                 tabuleiro[linha][coluna] = 1
-
     return tabuleiro
 
 
@@ -50,19 +48,8 @@ def afundados(frota, tabuleiro):
     return contador
 
 
-def define_posicoes(linha, coluna, orientacao, tamanho):
-    posicoes = []
-    for i in range(tamanho):
-        if orientacao == 'vertical':
-            posicoes.append([linha + i, coluna])
-        elif orientacao == 'horizontal':
-            posicoes.append([linha, coluna + i])
-    return posicoes
-
-
 def posicao_valida(frota, linha, coluna, orientacao, tamanho):
     novas_posicoes = define_posicoes(linha, coluna, orientacao, tamanho)
-
     for posicao in novas_posicoes:
         l, c = posicao
         if l < 0 or l > 9 or c < 0 or c > 9:
@@ -71,5 +58,4 @@ def posicao_valida(frota, linha, coluna, orientacao, tamanho):
             for navio in navios:
                 if posicao in navio:
                     return False
-
     return True
