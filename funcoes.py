@@ -7,6 +7,7 @@ def define_posicoes(linha, coluna, orientacao, tamanho):
             posicoes.append([linha, coluna + i])
     return posicoes
 
+
 def preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho):
     posicoes = define_posicoes(linha, coluna, orientacao, tamanho)
     if nome_navio not in frota:
@@ -14,12 +15,14 @@ def preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho):
     frota[nome_navio].append(posicoes)
     return frota
 
+
 def faz_jogada(tabuleiro, linha, coluna):
     if tabuleiro[linha][coluna] == 1:
         tabuleiro[linha][coluna] = 'X'
     else:
         tabuleiro[linha][coluna] = '-'
     return tabuleiro
+
 
 def posiciona_frota(frota):
     tabuleiro = []
@@ -33,6 +36,7 @@ def posiciona_frota(frota):
 
     return tabuleiro
 
+
 def afundados(frota, tabuleiro):
     contador = 0
     for navios in frota.values():
@@ -45,3 +49,27 @@ def afundados(frota, tabuleiro):
                 contador += 1
     return contador
 
+
+def define_posicoes(linha, coluna, orientacao, tamanho):
+    posicoes = []
+    for i in range(tamanho):
+        if orientacao == 'vertical':
+            posicoes.append([linha + i, coluna])
+        elif orientacao == 'horizontal':
+            posicoes.append([linha, coluna + i])
+    return posicoes
+
+
+def posicao_valida(frota, linha, coluna, orientacao, tamanho):
+    novas_posicoes = define_posicoes(linha, coluna, orientacao, tamanho)
+
+    for posicao in novas_posicoes:
+        l, c = posicao
+        if l < 0 or l > 9 or c < 0 or c > 9:
+            return False
+        for navios in frota.values():
+            for navio in navios:
+                if posicao in navio:
+                    return False
+
+    return True
